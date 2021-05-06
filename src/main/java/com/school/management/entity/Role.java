@@ -1,4 +1,4 @@
-package com.school.management.model;
+package com.school.management.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,14 +8,14 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="role")
-public class Subject {
+public class Role {
 
 	@Id
 	@GeneratedValue
 	@Column(name="id")
 	private Integer id;
-	@Column(name="subjec_name")
-	private String subjectName;
+	@Column(name="role_name")
+	private String roleName;
 	@Column(name="is_active")
 	private Integer isActive;
 	public Integer getId() {
@@ -24,11 +24,11 @@ public class Subject {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getSubjectName() {
-		return subjectName;
+	public String getRoleName() {
+		return roleName;
 	}
-	public void setSubjectName(String subjectName) {
-		this.subjectName = subjectName;
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
 	}
 	public Integer getIsActive() {
 		return isActive;

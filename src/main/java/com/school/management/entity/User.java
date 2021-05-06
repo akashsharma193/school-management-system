@@ -1,4 +1,4 @@
-package com.school.management.model;
+package com.school.management.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
