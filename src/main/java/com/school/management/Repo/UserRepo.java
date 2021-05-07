@@ -9,4 +9,6 @@ import com.school.management.entity.User;
 @Repository
 public interface UserRepo extends JpaSpecificationExecutor<User>, JpaRepository<User, Integer> {
 
+	User findByEmail(String email);
+
 }

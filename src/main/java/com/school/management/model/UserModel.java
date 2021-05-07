@@ -1,5 +1,13 @@
 package com.school.management.model;
 
+import java.util.Date;
+
+import lombok.Getter;
+import lombok.Setter;
+
+
+@Getter
+@Setter
 public class UserModel {
 
 	private Integer id;
@@ -7,43 +15,22 @@ public class UserModel {
 	private String middleName;
 	private String lastName;
 	private String address;
-	private Integer isActive;
+	private Integer roleId;
 	
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	public String getFirstName() {
-		return firstName;
-	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-	public String getMiddleName() {
-		return middleName;
-	}
-	public void setMiddleName(String middleName) {
-		this.middleName = middleName;
-	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	public Integer getIsActive() {
-		return isActive;
-	}
-	public void setIsActive(Integer isActive) {
-		this.isActive = isActive;
-	}
-
+	private RoleModel roleModel;
+	private String password;
+	private String email;
+	
+	private Integer mobile;
+	private Integer adharNumber;
+	private Integer isAvailableOnWeb;
+	private String profilePictureName;
+	private String profilePictureData;
+	private String profilePicturePath;
+	private Integer profilePictureSize;
+	private Date updateDate;
+	private Date craeateDate;
+	private String createdBy;
+	private String updatedBy;
+	private Integer isActive;
 }

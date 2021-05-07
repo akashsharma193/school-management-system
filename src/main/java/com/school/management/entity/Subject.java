@@ -6,8 +6,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
-@Table(name="role")
+@Table(name="subject")
+@Setter
+@Getter
 public class Subject {
 
 	@Id
@@ -18,22 +23,4 @@ public class Subject {
 	private String subjectName;
 	@Column(name="is_active")
 	private Integer isActive;
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	public String getSubjectName() {
-		return subjectName;
-	}
-	public void setSubjectName(String subjectName) {
-		this.subjectName = subjectName;
-	}
-	public Integer getIsActive() {
-		return isActive;
-	}
-	public void setIsActive(Integer isActive) {
-		this.isActive = isActive;
-	}
 }
