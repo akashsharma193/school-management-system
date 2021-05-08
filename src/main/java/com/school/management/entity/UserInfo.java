@@ -20,7 +20,7 @@ import lombok.Setter;
 @Table(name="user",uniqueConstraints={@UniqueConstraint(columnNames={"email","mobile","adhar_number"})})
 @Setter
 @Getter
-public class User {
+public class UserInfo {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

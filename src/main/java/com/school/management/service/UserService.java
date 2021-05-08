@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import com.school.management.Repo.UserRepo;
 import com.school.management.common.CreatePagination;
 import com.school.management.entity.Role;
-import com.school.management.entity.User;
+import com.school.management.entity.UserInfo;
 import com.school.management.model.FilterParameter;
 import com.school.management.model.LoginResponse;
 import com.school.management.model.ResponseOperationResult;
@@ -65,9 +65,9 @@ public class UserService {
 			sc = new SearchCriteria("isActive", isActive, SearchOperation.EQUAL);
 			list.add(sc);
 		}
-		FilterUtil<User> filterUtil = new FilterUtil<User>();
+		FilterUtil<UserInfo> filterUtil = new FilterUtil<UserInfo>();
 
-		List<User> userData = new ArrayList<User>();
+		List<UserInfo> userData = new ArrayList<UserInfo>();
 		Long recordTotal = (long) 0;
 		if (from != null && to != null) {
 			Pageable page = PageRequest.of(from, to);
@@ -77,7 +77,7 @@ public class UserService {
 		}
 		if (userData != null && !userData.isEmpty()) {
 			recordTotal = (long) userData.size();
-			for (User user : userData) {
+			for (UserInfo user : userData) {
 				UserModel userModel = new UserModel();
 				entityToModel(userModel, user);
 				userModelList.add(userModel);
@@ -95,13 +95,13 @@ public class UserService {
 			Integer id = userModel.getId() == null ? null : userModel.getId();
 
 			if (id != null) {
-				User userData = userRepo.findById(id).get();
+				UserInfo userData = userRepo.findById(id).get();
 				modelToEntity(userModel, userData);
 				userData.setUpdateDate(new Date());
 				userData.setUpdatedBy(user);
 				userRepo.save(userData);
 			} else {
-				User userData = new User();
+				UserInfo userData = new UserInfo();
 				modelToEntity(userModel, userData);
 				userData.setCraeateDate(new Date());
 				userData.setCreatedBy(user);
@@ -114,23 +114,7 @@ public class UserService {
 		}
 		return response;
 	}
-	
-	public LoginResponse login(UserModel userModel, String user, FilterParameter filterParameter) {
-		User userData = userRepo.findByEmail(userModel.getEmail());
-		LoginResponse response = new LoginResponse();
-
-		if(userData!=null && userData.getPassword()!=null && userModel.getPassword()!=null && userData.getPassword().equals(userModel.getPassword())) {
-			response.setAuthToken("");
-			response.setEmailId(userData.getEmail());
-			response.setFirstName(userData.getFirstName());
-			response.setLastName(userData.getLastName());
-			response.setUserId(userData.getId().toString());
-			response.setRoleModel(new RoleModel(userData.getRole().getId(), userData.getRole().getRoleName(), userData.getRole().getIsActive()));
-		}
-		return response;
-	}
-
-	private void entityToModel(UserModel userModel, User userEntity) {
+	private void entityToModel(UserModel userModel, UserInfo userEntity) {
 		userModel.setId(userEntity.getId() != null ? userEntity.getId() : userModel.getId());
 		userModel.setFirstName(userEntity.getFirstName() != null ? userEntity.getFirstName() : userModel.getFirstName());
 		userModel.setMiddleName(userEntity.getMiddleName() != null ? userEntity.getMiddleName() : userModel.getMiddleName());
@@ -155,7 +139,7 @@ public class UserService {
 	
 	}
 
-	private void modelToEntity(UserModel userModel, User userEntity) {
+	private void modelToEntity(UserModel userModel, UserInfo userEntity) {
 		userEntity.setId(userModel.getId() != null ? userModel.getId() : userEntity.getId());
 		userEntity.setId(userModel.getId() != null ? userModel.getId() : userEntity.getId());
 		userEntity.setFirstName(userModel.getFirstName() != null ? userModel.getFirstName() : userEntity.getFirstName());

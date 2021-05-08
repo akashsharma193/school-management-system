@@ -26,20 +26,6 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
-	@PostMapping("login")
-	public LoginResponse login(HttpServletRequest request, @RequestBody UserModel userModel, @BeanParam FilterParameter filterParameter){
-		LoginResponse result = null;
-		String user = "admin";
-		if(request.getUserPrincipal()!=null) {
-			user = request.getUserPrincipal().getName();
-		}
-		try {
-			result = userService.login(userModel, user, filterParameter);
-		}catch(Exception e) {
-			System.out.println(e);
-		}
-		return result;
-	}
 	
 	@GetMapping("getUserList")
 	public ResponseOperationResult<List<UserModel>> getUserList(HttpServletRequest request, @BeanParam FilterParameter filterParameter){
