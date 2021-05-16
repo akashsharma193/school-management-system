@@ -1,5 +1,7 @@
 package com.school.management.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,4 +25,12 @@ public class Subject {
 	private String subjectName;
 	@Column(name="is_active")
 	private Integer isActive;
+	@Column(name="update_date")
+	private Date updateDate;
+	@Column(name="craete_date")
+	private Date craeateDate;
+	@Column(name="created_by")
+	private String createdBy;
+	@Column(name="updated_by")
+	private String updatedBy;
 }

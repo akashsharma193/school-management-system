@@ -1,6 +1,7 @@
 package com.school.management.model;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +19,7 @@ public class UserModel {
 	private Integer roleId;
 	
 	private RoleModel roleModel;
+	private List<ClassModel> classModel;
 	private String password;
 	private String email;
 	

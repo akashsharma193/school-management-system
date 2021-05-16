@@ -19,5 +19,8 @@ public class FilterParameter {
 	private @QueryParam("lastName") String lastName="";
 	private @QueryParam("isActive") String isActive="";
 	private @QueryParam("roleId") String roleId="";
+	private @QueryParam("subjectName") String subjectName="";
+	private @QueryParam("className") String className="";
+	
 	
 }

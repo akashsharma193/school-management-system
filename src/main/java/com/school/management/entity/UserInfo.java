@@ -1,6 +1,7 @@
 package com.school.management.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -40,6 +43,17 @@ public class UserInfo {
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "role_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Role role; 
+	
+
+    @ManyToMany(cascade = {
+        CascadeType.PERSIST,
+        CascadeType.MERGE
+    })
+    @JoinTable(name = "user_class",
+        joinColumns = @JoinColumn(name = "id"),
+        inverseJoinColumns = @JoinColumn(name = "class_id")
+    )
+    private List<ClassEntity> classEntity;  
 	
 	@Column(name="password")
 	private String password;

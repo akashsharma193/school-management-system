@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.school.management.model.ErrorParameter;
@@ -21,6 +22,7 @@ import com.school.management.service.UserService;
 import org.apache.log4j.Logger;
 
 @RestController
+@RequestMapping("User")
 public class UserController {
 
 	@Autowired
@@ -42,7 +44,7 @@ public class UserController {
 		return result;
 	}
 	
-	@PostMapping("createorupdate")
+	@PostMapping("createOrUpdate")
 	public ResponseOperationResult<UserModel> createOrUpdate(HttpServletRequest request, @RequestBody UserModel userModel){
 		ResponseOperationResult<UserModel> result = new ResponseOperationResult<UserModel>();
 		String user = "admin";

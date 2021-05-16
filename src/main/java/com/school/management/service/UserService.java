@@ -12,10 +12,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.school.management.Repo.ClassRepo;
 import com.school.management.Repo.UserRepo;
 import com.school.management.common.CreatePagination;
+import com.school.management.entity.ClassEntity;
 import com.school.management.entity.Role;
 import com.school.management.entity.UserInfo;
+import com.school.management.model.ClassModel;
 import com.school.management.model.FilterParameter;
 import com.school.management.model.LoginResponse;
 import com.school.management.model.ResponseOperationResult;
@@ -31,6 +34,9 @@ public class UserService {
 
 	@Autowired
 	UserRepo userRepo;
+	
+	@Autowired
+	ClassRepo classRepo;
 	
 	public ResponseOperationResult<List<UserModel>> getUserList(FilterParameter filterParameter) {
 		ResponseOperationResult<List<UserModel>> response = new ResponseOperationResult<>();
@@ -110,7 +116,7 @@ public class UserService {
 			}
 			response.setResponse(userModel);
 		} catch (Exception e) {
-
+			System.out.println(e);
 		}
 		return response;
 	}
@@ -136,7 +142,19 @@ public class UserService {
 		userModel.setCreatedBy(userEntity.getCreatedBy() !=null ? userEntity.getCreatedBy() : userModel.getCreatedBy());
 		userModel.setCraeateDate(userEntity.getCraeateDate() !=null ? userEntity.getCraeateDate() : userModel.getCraeateDate());
 		userModel.setIsActive(userEntity.getIsActive() != null ? userEntity.getIsActive() : userModel.getIsActive());
-	
+		if(userEntity.getClassEntity()!=null && !userEntity.getClassEntity().isEmpty()) {
+			List<ClassModel> classModel = new ArrayList<>();
+			for (ClassEntity classEntity2 : userEntity.getClassEntity()) {
+				ClassModel cm = new ClassModel();
+				cm.setId(classEntity2.getClasssId());
+				cm.setClassName(classEntity2.getClassName());
+				cm.setClassNumber(classEntity2.getClassNumber());
+				cm.setIsActive(classEntity2.getIsActive());
+				classModel.add(cm);
+			}
+			userModel.setClassModel(classModel);
+		}
+		
 	}
 
 	private void modelToEntity(UserModel userModel, UserInfo userEntity) {
@@ -162,6 +180,18 @@ public class UserService {
 		userEntity.setCreatedBy(userModel.getCreatedBy() !=null ? userModel.getCreatedBy() : userEntity.getCreatedBy());
 		userEntity.setCraeateDate(userModel.getCraeateDate() !=null ? userModel.getCraeateDate() : userEntity.getCraeateDate());
 		userEntity.setIsActive(userModel.getIsActive() != null ? userModel.getIsActive() : userEntity.getIsActive());
+		if(userModel.getClassModel()!=null && !userModel.getClassModel().isEmpty()) {
+			List<ClassEntity> classEntity = new ArrayList<>();
+			for (ClassModel classModel2 : userModel.getClassModel()) {
+				ClassEntity ce = new ClassEntity();
+				ce.setClasssId(classModel2.getId());
+				ce.setClassName(classModel2.getClassName());
+				ce.setClassNumber(classModel2.getClassNumber());
+				ce.setIsActive(classModel2.getIsActive());
+				classEntity.add(ce);
+			}
+			userEntity.setClassEntity(classEntity);
+		}
 		
 	}
 

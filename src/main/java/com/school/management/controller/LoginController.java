@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.school.management.entity.UserInfo;
 import com.school.management.model.LoginResponse;
+import com.school.management.model.RoleModel;
 import com.school.management.model.UserModel;
 import com.school.management.service.LoginService;
 import com.school.management.util.JwtUtil;
@@ -28,17 +30,22 @@ public class LoginController {
 	@PostMapping("login")
 	public LoginResponse login( @RequestBody UserModel userModel){
 		LoginResponse result = new LoginResponse();
-		String user = "admin";
 		try {
 			this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userModel.getEmail(), userModel.getPassword()));
 		}catch(Exception e) {
 			System.out.println(e);
+			return result;
 		}
+		UserInfo userInfo = loginService.getUserDetails(userModel);
 		UserDetails userData = this.loginService.loadUserByUsername(userModel.getEmail());
-		if(userData.getPassword().equals(userModel.getPassword())){
+		if(userInfo!=null && userData.getPassword().equals(userModel.getPassword())){
 			String token = this.jwtUtil.generateToken(userData);
 			result.setAuthToken(token);
 			result.setEmailId(userModel.getEmail());
+			result.setFirstName(userInfo.getFirstName());
+			result.setLastName(userInfo.getLastName());
+			result.setUserId(userInfo.getId().toString());
+			result.setRoleModel(new RoleModel(userInfo.getRole().getId(), userInfo.getRole().getRoleName(), userInfo.getRole().getIsActive()));
 		}
 		return result;
 	}
